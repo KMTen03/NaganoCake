@@ -1,2 +1,68 @@
-<h1>Admin::Orders#show</h1>
-<p>Find me in app/views/admin/orders/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h6>注文履歴詳細</h6>
+    </div>
+  </div>
+  <%= form_with model: @order, url: admin_order_path, local: true do |f| %>
+  <div class="row">
+    <div class="col-md-8">
+      <h6>購入者</h6>
+      <%= link_to admin_customer_path(@customer.id) do %>
+        <%= @order.customer.last_name + @order.customer.first_name %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h6>注文日</h6>
+      <%= @order.created_at.strftime("%Y-%m-%d") %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h6>配送先</h6>
+      <%= @order.post_code %>
+      <%= @order.address %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h6>支払方法</h6>
+      <%= @order.payment_i18n %>
+    <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-borderless">
+        <tr>
+          <th class="table-secondary">商品名</th>
+          <th class="table-secondary">単価(税込)</th>
+          <th class="table-secondary">数量</th>
+          <th class="table-secondary">小計</th>
+        </tr>
+        <% @order.orderdetails.each do |orderdetail| %>
+        <tr>
+          <td><%= orderdetail.item.name %></td>
+          <td><%= orderdetail.tax_price %></td>
+          <td><%= orderdetail.quantity %></td>
+          <td>
+            <%= orderdetail.quantity * orderdetail.tax_price %>
+          </td>
+        </tr>
+        <% @total += orderdetail.subtotal %>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <h6>商品合計</h6>
+      <%= @total %>
+      <h6>送料</h6>
+      <%= @order.carriage = 800 %>
+      <h6>請求金額合計</h6>
+      <% @total += @order.carriage %>
+      <%= @total %>
+    </div>
+  </div>
+</div>

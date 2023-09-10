@@ -21,8 +21,8 @@ class Public::CartItemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get addition" do
-    get public_cart_items_addition_url
+  test "should get create" do
+    get public_cart_items_create_url
     assert_response :success
   end
 end

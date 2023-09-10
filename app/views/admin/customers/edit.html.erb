@@ -1,2 +1,60 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset_sm-1">
+      <h5><%= @customer.last_name + @customer.first_name %>さんの会員情報編集</h5>
+      <%= form_with model: @customer, url: admin_customer_path(@customer.id) do |f| %>
+        <div class="row">
+          <div class="col-3 offset-md-1"><%= f.label "会員ID" %></div>
+          <div class="col-3"><%= @customer.id %></div>
+        </div>
+        <div class="row">
+          <div class="col-2 offset-md-1"><%= f.label "氏名" %></div>
+          <div class="col-1"></div>
+          <div class="col-2"><%= f.text_field :last_name, :size => "15", placeholder: "山田" %></div>
+          <div class="col-1"></div>
+          <div class="col-3"><%= f.text_field :first_name, :size => "15", placeholder: "花子" %></div>
+        </div>
+        <div class="row">
+          <div class="col-2 offset-md-1"><%= f.label "フリガナ" %></div>
+          <div class="col-1"></div>
+          <div class="col-2"><%= f.text_field :first_name_kana, :size => "15", placeholder: "ヤマダ" %></div>
+          <div class="col-1"></div>
+          <div class="col-3"><%= f.text_field :last_name_kana, :size => "15", placeholder: "ハナコ" %></div>
+        </div>
+        <div class="row">
+          <div class="col-2 offset-md-1"><%= f.label "郵便番号" %></div>
+          <div class="col-1"></div>
+          <div class="col-2"><%= f.text_field :postal_code, :size => "15", placeholder: "×××-×××××" %></div>
+        </div>
+        <div class="row">
+          <div class="col-2 offset-md-1"><%= f.label "住所" %></div>
+          <div class="col-1"></div>
+          <div class="col-2"><%= f.text_field :address, :size => "40", placeholder: "長野県〇〇市〇〇１−１" %></div>
+        </div>
+        <div class="row">
+          <div class="col-2 offset-md-1"><%= f.label "電話番号" %></div>
+          <div class="col-1"></div>
+          <div class="col-2"><%= f.text_field :telephone_number, :size => "15", placeholder: "090-1234-5678" %></div>
+        </div>
+        <div class="row">
+          <div class="col-3 offset-md-1"><%= f.label "メールアドレス" %></div>
+          <div class="col-2"><%= f.text_field :email, :size => "15", placeholder: "customer@example.com" %></div>
+        </div>
+        <div class="row">
+          <div class="col-3 offset-md-1"><%= f.label "会員ステータス" %></div>
+            <div class="col-3">
+            <%= f.radio_button :is_deleted, :false %>
+            <%= f.label :is_deleted, "有効" %>
+            <%= f.radio_button :is_deleted, true %>
+            <%= f.label :is_deleted, "退会" %>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <%= f.submit "変更を保存", class: 'btn btn-success' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

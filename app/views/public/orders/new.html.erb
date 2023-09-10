@@ -1,2 +1,55 @@
-<h1>Public::Orders#new</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h5>注文情報入力</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    <h6>支払方法</h6>
+    <%= form_with model: @order, url: confirm_path do |f| %>
+
+      <%= f.radio_button :payment, Order.payments.key(0), checked: true %>
+      <%= f.label :payment_credit_card, Order.payments_i18n[:credit_card] %>
+
+      <%= f.radio_button :payment, Order.payments.key(1) %>
+      <%= f.label :payment_transfer, Order.payments_i18n[:transfer]%>
+    <h6>お届け先</h6>
+      <%= f.radio_button :home_address, :myself, checked: true %>
+      <%= f.label :home_address_myself, "ご自身の住所" %>
+      <%= current_customer.address %>
+
+      <%= f.radio_button :home_address, :choice %>
+      <%= f.label :address_choice, "新しいお届け先" %>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tr>
+          <td>
+            <%= f.label :post_code, "郵便番号(ハイフンなし)" %>
+            <%= f.text_field :post_code %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :home_address, "住所" %>
+            <%= f.text_field :home_address %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :home_address, "宛名" %>
+            <%= f.text_field :address %>
+          </td>
+        </tr>
+      </table>
+      <div class="text-center">
+        <%= f.submit '確認画面へ進む', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
